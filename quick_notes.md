@@ -10,7 +10,7 @@ In express.js middleware functions that have access to the request object (req),
 ### Key Capabilities of Middleware: -
 - `Execute any code` : You can perform a wide range of tasks within middleware, such as logging, authentication, data parsing, error handling, and more.
 
-- `Modify request and response objects` : Middleware can access and modify properties of the req and res objects, allowing you to add information or alter the flow of data.
+- `Modify request and response objects` : Middleware can access and modify properties of the req and res objects, allowing you to add information or later the flow of data.
 
 - `Terminate the request-response cycle` : If a middleware function decides to handle the request entirely, it can send a response directly and prevent further processing.
 
@@ -73,7 +73,7 @@ Example:-
             c: false,
         };
          console.log(Object.values(object1));
-        Expected output: Array ["some string", 42, false]
+        Expected output: Array [0:"some string",1:  42, 2: false]
 
 function getTodoHandler(req, res) {
   const allTodo = Object.values(globalTodo);

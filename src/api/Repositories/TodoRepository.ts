@@ -1,42 +1,48 @@
-import { Todo } from "../Entities/Todo"
-import ITodoRepo from "./TodoRepository.interface"
+import { Todo } from "../Entities/Todo";
+import ITodoRepo, {
+  ICreateTodoRepoParameters,
+  IUpdateTodoRepoParameters
+} from "./TodoRepository.interface";
 
 export class TodoRepository implements ITodoRepo {
-  private globalObj: { [key: number]: Todo } = {}
-  private globalId: number = 0
+  private globalObj: { [key: number]: Todo } = {};
+  private globalId: number = 0;
 
   public getAllTodo = (): Todo[] => {
-    return Object.values(this.globalObj)
-  }
+    return Object.values(this.globalObj);
+  };
 
-  public createTodo = (title: string, description: string): Todo => {
+  public createTodo = ({
+    title: title,
+    description: description
+  }: ICreateTodoRepoParameters): Todo => {
     const newTodo = {
       id: ++this.globalId,
       title: title,
       description: description
-    }
-    this.globalObj[newTodo.id] = newTodo
-    return newTodo
-  }
+    };
+    this.globalObj[newTodo.id] = newTodo;
+    return newTodo;
+  };
 
-  public updateTodo = (
-    id: number,
-    title: string,
-    description: string
-  ): Todo | null => {
+  public updateTodo = ({
+    id: id,
+    title: title,
+    description: description
+  }: IUpdateTodoRepoParameters): Todo | null => {
     if (id in this.globalObj) {
-      const updateTodo = { id, title, description }
-      this.globalObj[id] = updateTodo
-      return updateTodo
+      const updateTodo = { id: id, title: title, description: description };
+      this.globalObj[id] = updateTodo;
+      return updateTodo;
     }
-    return null
-  }
+    return null;
+  };
 
-  public deleteTodo(id: number): boolean {
+  public deleteTodo = (id: number): boolean => {
     if (id in this.globalObj) {
-      delete this.globalObj[id]
-      return true
+      delete this.globalObj[id];
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 }

@@ -1,36 +1,43 @@
-import { Todo } from "../Entities/Todo"
-import { TodoRepository } from "../Repositories/TodoRepository"
+import { Todo } from "../Entities/Todo";
+import { TodoRepository } from "../Repositories/TodoRepository";
 import ITodoService, {
   ICreateTodoServiceParams,
   IUpdateTodoServiceParams
-} from "./TodoService.interface"
+} from "./TodoService.interface";
 
 export class TodoService implements ITodoService {
-  private todoRepository: TodoRepository
+  private todoRepository: TodoRepository;
   constructor(todoRepository: TodoRepository) {
-    this.todoRepository = todoRepository
+    this.todoRepository = todoRepository;
   }
 
   public getAllTodo = (): Todo[] => {
-    return this.todoRepository.getAllTodo()
-  }
+    return this.todoRepository.getAllTodo();
+  };
 
   public createTodo = ({
-    title,
-    description
+    title: title,
+    description: description
   }: ICreateTodoServiceParams): Todo => {
-    return this.todoRepository.createTodo(title, description)
-  }
+    return this.todoRepository.createTodo({
+      title: title,
+      description: description
+    });
+  };
 
   public updateTodo = ({
-    id,
-    title,
-    description
+    id: id,
+    title: title,
+    description: description
   }: IUpdateTodoServiceParams): Todo | null => {
-    return this.todoRepository.updateTodo(id, title, description)
-  }
+    return this.todoRepository.updateTodo({
+      id: id,
+      title: title,
+      description: description
+    });
+  };
 
   public deletedTodo(id: number) {
-    return this.todoRepository.deleteTodo(id)
+    return this.todoRepository.deleteTodo(id);
   }
 }
